@@ -35,7 +35,7 @@ class EmpDao:
         #conver tupple from results into an array
         returnArray = []
             #sanity check
-        print(results)
+        #print(results)
         for result in results:
             #call the funtion convertToDict
             resultAsDict = self.convertToDict(result)
@@ -55,7 +55,35 @@ class EmpDao:
                 employee[colName] = value
             return employee
 
-    def findbyID
+    def findByID(self,eeID):
+        cursor = self.db.cursor()
+        sql = "select * from employees where eeID = %s"
+        values = [ eeID ]
+        cursor.execute(sql, values)
+        result = cursor.fetchone()
+        
+        #convert the returned value into a dict object
+        return self.convertToDict(result)
+    
+    def update(self,employee):
+        cursor = self.db.cursor()
+        sql = "update employees set firstName = %s, lastName= %s, address= %s where eeID =%s"
+        values = [
+            employee['firstName'],
+            employee['lastName'],
+            employee['address'],
+            employee['eeID']
+        ]
+        cursor.execute(sql,values)
+        self.db.commit()
+        return employee
+            
+    def delete(self,eeID):
+        cursor = self.db.cursor()
+        sql = "delete from employees where eeID = %s"
+        values = [ eeID ]
+        cursor.execute(sql, values)
+        return {}
 
 
 
