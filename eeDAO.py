@@ -14,16 +14,21 @@ class EmpDao:
     #print ("connection made")
 
     #function to create data as a json / dict object
+    #updated for auto increment
     def create(self, employee):
+    #def create(self, values):
         cursor = self.db.cursor()
-        sql = "insert into employees (eeID, firstName, lastName, address) values (%s,%s,%s,%s)"
+        #sql = "insert into employees (eeID, firstName, lastName, address) values (%s,%s,%s,%s)"
         values = [
-            employee['eeID'],
+        #    employee['eeID'],
             employee['firstName'],
             employee['lastName'],
             employee['address'],
         ]
+        #sql = "insert into employees (eeID, firstName, lastName, address) values (%s,%s,%s,%s)"
+        sql = "insert into employees (firstName, lastName, address) values (%s,%s,%s)"
         cursor.execute(sql,values)
+        
         self.db.commit()
         return cursor.lastrowid
 
