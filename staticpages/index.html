@@ -1,0 +1,156 @@
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+       
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    </head>
+    <body>
+  
+
+        <div id="create-update" style="display:none">
+            <h2>Create or Edit a Record</h2>
+            <table class="table" id="createUpdateForm">
+                <tr>
+                    <td>Employee ID</td>
+                    <td><input type="text" name="eeID" id="idInput"></td>
+                </tr>
+                <tr>
+                    <td>First Name</td>
+                    <td><input type="text" name="firstName"></td>
+                </tr>
+                <tr>
+                    <td>Last Name</td>
+                    <td><input type="text" name="lastName"></td>
+                </tr>
+                <tr>
+                    <td>Address </td>
+                    <td><input type="text" name="address"></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><button id="create-button" onclick="doCreate()">Create</button></td>
+                    <td><button id="update-button" onclick="doUpdate()">Update</button></td>
+                </tr>
+            </table>
+        </div>
+        
+        <div id="display">
+            <h2>Employee Data</h2>
+            <br>
+            <button onclick="showCreate()">Create a new Employee </button>
+            <br><br>
+            <table id="employeeTable" class="table">
+                <tr>
+                    <th>Emp ID</th><th>First Name</th><th>Last Name</th><th>Address</th><th> </th><th> </th>
+                </tr>
+                <!-- TEST TO MAKE SURE TABLE IS WORKING -->
+                    <tr id="123">
+                    <td>4</td>
+                    <td>Natasha</td>
+                    <td>Romanoff </td>
+                    <td>New York</td>
+                    <td><button onclick="showUpdate(this)">Update</button></td>
+                    <td><button onclick="doDelete(this)">Delete</button></td>
+                </tr> 
+            </table>
+        </div> 
+        <script>
+            function showCreate(){
+                //find the div for 'display' @ line 37 and show
+                document.getElementById('display').style.display="none"
+                document.getElementById('create-update').style.display="block"
+            }
+            function doCreate(){
+                //find the div for 'display' @ line 37 and show
+                console.log("in doCreate")
+                EE = getEEFromForm()
+                //code to put the data to the server
+                $.ajax({
+                    url:"http://127.0.0.1:5000/employees",
+                    method:'POST',
+                    data: JSON.stringify(EE),
+                    dataType:'JSON',
+                    contentType: "application/json; charset=utf-8",
+                    success:function(result){
+                        console.log(result)
+                        //add book to table if the update has worked
+                        addEEtoTable(EE)
+                        showDisplay()
+                    },
+                    error:function(xhr,status,error){
+                        console.log("error "+error)
+                    }
+                })
+                showDisplay()
+            }
+            function showDisplay(){
+                //find the div for 'display' @ line 37 and show
+                document.getElementById('display').style.display="block"
+                document.getElementById('create-update').style.display="none"
+            }
+            function getEEFromForm(){
+                var form = document.getElementById('createUpdateForm')
+                var EE = {}
+                //commented out this as the primary key is auto incremented
+                //EE.empID = form.querySelector('input[name="empID"]').value
+                EE.firstName = form.querySelector('input[name="firstName"]').value
+                EE.lastName = form.querySelector('input[name="lastName"]').value
+                EE.address = form.querySelector('input[name="address"]').value
+                //sanity check for doCreate() function
+                console.log(EE)
+                return EE
+            }
+
+           function populateTable(){
+            // function to populate the table from the DB to getAll()
+            //ajax getAll
+            //employee = {
+                //empID:"5",
+                //firstName:"Jane",
+                //lastName:"Doe",
+                //address:"NY, NY"                   
+            //}
+            employee = '';
+                $.ajax({
+                url:"http://127.0.0.1:5000/employees",
+                method:'GET',
+                data:'',
+                dataType:'JSON',
+                contentType: "application/json; charset=utf-8",
+                success:function(result){
+             //for (const item in result)
+            //functional programming for loop
+            //for each item in array .. javascript
+                    result.forEach(addEEtoTable);
+             
+                },
+                error:function(xhr,status,error){
+                    console.log("error" +error + "code"+status)
+                }
+            })
+            }
+        function addEEtoTable(EE){
+            //console.log("working so far")
+            const tableElem = document.getElementById("employeeTable")
+            const rowElem = tableElem.insertRow(-1)
+            rowElem.setAttribute("id",EE.eeID)
+            //rowElem.setAttribute("id",employee.firstName)
+            const cell1 = rowElem.insertCell(0);
+            cell1.innerHTML = EE.eeID;
+            const cell2 = rowElem.insertCell(1);
+            cell2.innerHTML = EE.firstName;
+            const cell3 = rowElem.insertCell(2);
+            cell3.innerHTML = EE.lastName;
+            const cell4 = rowElem.insertCell(3);
+            cell4.innerHTML = EE.address;
+            const cell5 = rowElem.insertCell(4);
+            cell5.innerHTML = '<button onclick="showUpdate(this)">Update</button>';
+            const cell6 = rowElem.insertCell(5);
+            cell6.innerHTML = '<button onclick="doDelete(this)">Delete</button>';
+            }
+            populateTable()
+
+
+        </script>
+    </body>
+</html>
