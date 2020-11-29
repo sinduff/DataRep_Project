@@ -44,7 +44,7 @@
                     <th>Emp ID</th><th>First Name</th><th>Last Name</th><th>Address</th><th> </th><th> </th>
                 </tr>
                 <!-- TEST TO MAKE SURE TABLE IS WORKING -->
-                    <tr id="123">
+                <tr id="123">
                     <td>4</td>
                     <td>Natasha</td>
                     <td>Romanoff </td>
@@ -62,12 +62,13 @@
             }
             function doCreate(){
                 //find the div for 'display' @ line 37 and show
-                console.log("in doCreate")
+                //console.log("in doCreate")
                 EE = getEEFromForm()
                 //code to put the data to the server
                 $.ajax({
                     url:"http://127.0.0.1:5000/employees",
                     method:'POST',
+                    //convert data to a string to allow it to be passed to the DB
                     data: JSON.stringify(EE),
                     dataType:'JSON',
                     contentType: "application/json; charset=utf-8",
@@ -81,12 +82,36 @@
                         console.log("error "+error)
                     }
                 })
-                showDisplay()
+                //showDisplay()
             }
             function showDisplay(){
                 //find the div for 'display' @ line 37 and show
                 document.getElementById('display').style.display="block"
                 document.getElementById('create-update').style.display="none"
+            }
+            function doDelete(thisElem){
+                //pass in thisElem from the populateTable
+                var tableElement = document.getElementById('employeeTable');
+                var rowElement = thisElem.parentNode.parentNode;
+                var index = rowElement.rowIndex;
+
+                eeID= rowElement.getAttribute("id");
+                console.log(eeID)
+                $.ajax({
+                    url:"/employees/"+eeID,
+                    method:"DELETE",
+                    data: "",
+                    dataType:"JSON",
+                    contentType:"application/json; charset=utf-8",
+                    success:function(result){
+                        tableElement.deleteRow(index);
+                    },
+                    error:function(xhr,status,error){
+                        //console.log()
+                        console.log("error "+error)
+                    }
+                })
+                //tableElement.deleteRow(index);
             }
             function getEEFromForm(){
                 var form = document.getElementById('createUpdateForm')
@@ -118,7 +143,7 @@
                 dataType:'JSON',
                 contentType: "application/json; charset=utf-8",
                 success:function(result){
-             //for (const item in result)
+            //for (const item in result)
             //functional programming for loop
             //for each item in array .. javascript
                     result.forEach(addEEtoTable);
