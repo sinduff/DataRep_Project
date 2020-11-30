@@ -1,18 +1,15 @@
 <html>
     <head>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-       
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     </head>
     <body>
-  
-
         <div id="create-update" style="display:none">
             <h2>Create or Edit a Record</h2>
             <table class="table" id="createUpdateForm">
                 <tr>
                     <td>Employee ID</td>
-                    <td><input type="text" name="eeID" id="idInput"></td>
+                    <td><input type="text" name="eeID" id="idInput" readonly></td>
                 </tr>
                 <tr>
                     <td>First Name</td>
@@ -43,12 +40,12 @@
                 <tr>
                     <th>Emp ID</th><th>First Name</th><th>Last Name</th><th>Address</th><th> </th><th> </th>
                 </tr>
-                <!-- TEST TO MAKE SURE TABLE IS WORKING -->
-                <tr id="123">
-                    <td>4</td>
-                    <td>Natasha</td>
-                    <td>Romanoff </td>
-                    <td>New York</td>
+                <!-- TEST TO MAKE SURE TABLE IS WORKING  -->
+                <tr id="Automatically assigned">
+                    <td>       </td>
+                    <td>       </td>
+                    <td>       </td>
+                    <td>       </td>
                     <td><button onclick="showUpdate(this)">Update</button></td>
                     <td><button onclick="doDelete(this)">Delete</button></td>
                 </tr> 
@@ -58,6 +55,23 @@
             function showCreate(){
                 //find the div for 'display' @ line 37 and show
                 document.getElementById('display').style.display="none"
+                document.getElementById('update-button').style.display="none"
+                document.getElementById('update-button').style.display="block"
+                document.getElementById('create-update').style.display="block"
+            }
+            function showUpdate(thisElem){
+                //use the eeID of the row to update
+                var rowElement = thisElem.parentNode.parentNode;
+                var eeID = rowElement.getAttribute("id");
+
+                document.getElementById("idInput").value = eeID
+                //property in text box set to 'readonly'
+                //document.getElementById("idInput").disabled = true
+                
+                //hide or show the buttons
+                document.getElementById('display').style.display="none"
+                document.getElementById('update-button').style.display="block"
+                document.getElementById('update-button').style.display="none"
                 document.getElementById('create-update').style.display="block"
             }
             function doCreate(){
