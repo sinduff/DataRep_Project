@@ -9,7 +9,7 @@
             <table class="table" id="createUpdateForm">
                 <tr>
                     <td>Employee ID</td>
-                    <td><input type="text" name="eeID" id="idInput" readonly></td>
+                    <td><input type="text" name="eeID" id="idInput" ></td>
                 </tr>
                 <tr>
                     <td>First Name</td>
@@ -67,10 +67,8 @@
                 //function to populate the form with data from the row
                 populateForm(eeUpdate)
 
-                //document.getElementById("idInput").value = eeID
-                //property in text box set to 'readonly'
+                document.getElementById("idInput").value = eeID
                 document.getElementById("idInput").disabled = true
-                
                 //hide or show the buttons
                 document.getElementById('display').style.display="none"
                 document.getElementById('update-button').style.display="block"
@@ -131,6 +129,34 @@
                 document.getElementById('display').style.display="block"
                 document.getElementById('create-update').style.display="none"
             }
+            function doUpdate(){
+                EE = getEEFromForm()
+                //update server
+                updateServer(EE)
+            }
+            function updateServer(){
+                //ajax call to the server
+                $.ajax({
+                    url:"/employees/"+EE.eeID,
+                    method:"PUT",
+                    //convert data to a string to allow it to be passed to the DB
+                    data: JSON.stringify(EE),
+                    dataType:'JSON',
+                    contentType: "application/json; charset=utf-8",
+                    success:function(result){
+                        console.log(result)
+                        //update table with the changes
+                        updateTableRow(EE)
+                        showDisplay()
+                    },
+                    error:function(xhr,status,error){
+                        console.log("error "+error)
+                    }
+                })
+            }
+            function updateTableRow(EE){
+                console.log("updating table")
+            }
             function doDelete(thisElem){
                 //pass in thisElem from the populateTable
                 var tableElement = document.getElementById('employeeTable');
@@ -159,7 +185,7 @@
                 var form = document.getElementById('createUpdateForm')
                 var EE = {}
                 //commented out this as the primary key is auto incremented
-                //EE.empID = form.querySelector('input[name="empID"]').value
+                EE.empID = form.querySelector('input[name="empID"]').value
                 EE.firstName = form.querySelector('input[name="firstName"]').value
                 EE.lastName = form.querySelector('input[name="lastName"]').value
                 EE.address = form.querySelector('input[name="address"]').value
