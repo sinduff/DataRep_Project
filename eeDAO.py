@@ -24,9 +24,10 @@ class EmpDao:
             employee['firstName'],
             employee['lastName'],
             employee['address'],
+            employee['genderType'],
         ]
         #sql = "insert into employees (eeID, firstName, lastName, address) values (%s,%s,%s,%s)"
-        sql = "insert into employees (firstName, lastName, address) values (%s,%s,%s)"
+        sql = "insert into employees (firstName, lastName, genderType, address) values (%s,%s,%s,%s)"
         cursor.execute(sql,values)
         
         self.db.commit()
@@ -50,7 +51,7 @@ class EmpDao:
 
     def convertToDict(self,result):
         #convert the tupple to ino a dict object called 'employee{}'
-        colnames = ['eeID', 'firstName', 'lastName', 'address']
+        colnames = ['eeID', 'firstName', 'lastName', 'address', 'genderType']
         employee = {}
 
         #iterate through the results, and for every colName, covert to []
@@ -72,10 +73,11 @@ class EmpDao:
     
     def update(self,employee):
         cursor = self.db.cursor()
-        sql = "update employees set firstName = %s, lastName= %s, address= %s where eeID =%s"
+        sql = "update employees set firstName = %s, lastName= %s, genderType= %s, address= %s  where eeID =%s"
         values = [
             employee['firstName'],
             employee['lastName'],
+            employee['genderType'],
             employee['address'],
             employee['eeID']
         ]

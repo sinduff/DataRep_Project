@@ -10,8 +10,6 @@ function showCreate() {
 
 function showUpdate(thisElem) {
 	//function to read the data in the row to be updated
-
-
 	populateForm(formValues[thisElem]);
 
 	//hide or show the buttons
@@ -30,6 +28,7 @@ function populateForm(eeUpdate) {
 
 	form.querySelector('input[name="firstName"]').value = eeUpdate.firstName;
 	form.querySelector('input[name="lastName"]').value = eeUpdate.lastName;
+	//form.querySelector('input[name="genderType"]').value = eeUpdate.genderType;
 	form.querySelector('input[name="address"]').value = eeUpdate.address;
 }
 
@@ -123,6 +122,7 @@ function getEEFromForm() {
 	EE.empID = form.querySelector('input[name="eeID"]').value;
 	EE.firstName = form.querySelector('input[name="firstName"]').value;
 	EE.lastName = form.querySelector('input[name="lastName"]').value;
+	//EE.genderType = form.querySelector('input[name="genderType"]').value;
 	EE.address = form.querySelector('input[name="address"]').value;
 	//sanity check for doCreate() function
 	console.log(EE);
@@ -165,12 +165,24 @@ function addEEtoTable(EE, indx) {
 	const cell3 = rowElem.insertCell(2);
 	cell3.innerHTML = EE.lastName;
 	const cell4 = rowElem.insertCell(3);
-	cell4.innerHTML = EE.address;
+	cell4.innerHTML = EE.genderType;
 	const cell5 = rowElem.insertCell(4);
-	cell5.innerHTML = `<button onclick="showUpdate(${indx})">Update</button>`;
+	cell5.innerHTML = EE.address;
 	const cell6 = rowElem.insertCell(5);
-	cell6.innerHTML = `<button onclick="doDelete(${indx})">Update</button>`;
+	cell6.innerHTML = `<button onclick="showUpdate(${indx})">Update</button>`;
+	const cell7 = rowElem.insertCell(6);
+	cell7.innerHTML = `<button onclick="doDelete(${indx})">Delete</button>`;
 }
 populateTable();
 
+function goBack(){
+	//log to console
+	//console.log("in goBack")
+	
+	//go back to the previous page .. returns to homepage
+	//window.history.back();
+	//window.history.go(-1);
 
+	//returns to home page of the project
+	window.location.href = 'http://127.0.0.1:5000/index.html';
+}

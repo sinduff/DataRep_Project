@@ -7,4 +7,9 @@ create table  employees(
     address varchar(250)
     );
 
+CREATE TABLE genderInfo (
+    -> genderID int,
+    -> genderType varchar(10)
+    -> );
+    
 

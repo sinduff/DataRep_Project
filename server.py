@@ -31,6 +31,8 @@ def findById(eeID):
 #create a new entry into the database
 #curl -X "POST" -H "Content-Type:application/json" -d "{\"eeID\":\3,\"firstName\":\"test\",\"lastName\":\"test\",\"address\":\"test\"}" http://127.0.0.1:5000/employees
 # to check it worked .. curl http://127.0.0.1:5000/employees
+#test for 2nd table
+#curl -X "POST" -H "Content-Type:application/json" -d "{\"eeID\":\20,\"firstName\":\"2nd test\",\"lastName\":\"2ndtest\",\"address\":\"2nd test\",\"genderType\":\"Unknown\"}" http://127.0.0.1:5000/employees
 @app.route('/employees', methods=['POST'])
 def create():
     #sanity check to make sure flask link is working
@@ -39,7 +41,8 @@ def create():
        #"eeID": nextID,
         "firstName":request.json["firstName"],
         "lastName": request.json["lastName"],
-        "address": request.json["address"],
+        "genderType": request.json["genderType"],
+        "address": request.json["address"],    
     }
     return jsonify(EmpDao.create(employee))
 
@@ -60,8 +63,10 @@ def update(eeID):
         currentEE['firstName'] = request.json['firstName']
     if 'lastName' in request.json:
         currentEE['lastName'] = request.json['lastName']
+    if 'genderType' in request.json:
+        currentEE['genderType'] = request.json['genderType']
     if 'address' in request.json:
-        currentEE['address'] = request.json['address']
+        currentEE['address'] = request.json['address']    
     EmpDao.update(currentEE)
     return jsonify(currentEE)
 
