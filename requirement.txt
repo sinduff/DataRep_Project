@@ -1,0 +1,33 @@
+# Data Representation and Querying
+## Project 2020 
+### Submited by Sinéad Duffy, Student ID - 10016151
+
+Order in which programs should be run;
+
+Step 1 - MySQL 
+** open up wamp server application
+
+** open mysql console and log into the database
+
+** select the relevant database i.e. hrSystem
+
+** select and display all the data for the two tables in the database
+	*employees
+	*genderInfo
+
+Step 2 - Flask Server
+** open up the command prompt, and 'cd' into the relevant folder
+
+** type in 'python server.py' to get the Flask server up and running
+
+Step 3 - Browser
+** open up a browser window and type in the link for the local server also include a reference to the static html page, which will interface with the mysql database and the server, 
+for example;    http://127.0.0.1:5000/index.html
+
+** data should load into the browser from the mysql database.
+
+** clicking on the update link will allow the user to update the data, and have it similarly update in the database
+
+** deleting a record on the browser will also delete the record in the database
+
+** selecting the 'create' button will create a new record for the database using the browser as the interface.
