@@ -16,18 +16,19 @@ class EmpDao:
     #function to create data as a json / dict object
     #updated for auto increment
     def create(self, employee):
-    #def create(self, values):
         cursor = self.db.cursor()
-        #sql = "insert into employees (eeID, firstName, lastName, address) values (%s,%s,%s,%s)"
         values = [
-        #    employee['eeID'],
+        #   employee['eeID'],
             employee['firstName'],
             employee['lastName'],
-            employee['address'],
             employee['genderType'],
+            employee['address'],
         ]
-        #sql = "insert into employees (eeID, firstName, lastName, address) values (%s,%s,%s,%s)"
-        sql = "insert into employees (firstName, lastName, genderType, address) values (%s,%s,%s,%s)"
+        #query for one table
+        sql = "insert into employees (eeID, firstName, lastName, genderType, address) values (%s,%s,%s,%s,%s)"
+        
+        #sql code to query two tables with an inner join statement
+        #sql = "SELECT employees.eeID, employees.firstName, employees.lastName, employees.address, genderinfo.genderType FROM genderinfo INNER JOIN employees ON genderinfo.genderType=employees.genderType"
         cursor.execute(sql,values)
         
         self.db.commit()
@@ -35,7 +36,8 @@ class EmpDao:
 
     def getAll(self):
         cursor = self.db.cursor()
-        sql = "select * from employees"
+        #sql = "select * from employees"
+        sql = "SELECT employees.eeID, employees.firstName, employees.lastName, employees.address, genderinfo.genderType FROM genderinfo INNER JOIN employees ON genderinfo.genderType=employees.genderType"
         cursor.execute(sql)
         results = cursor.fetchall()
         #conver tupple from results into an array
@@ -73,6 +75,7 @@ class EmpDao:
     
     def update(self,employee):
         cursor = self.db.cursor()
+        #sql code to query 1 table
         sql = "update employees set firstName = %s, lastName= %s, genderType= %s, address= %s  where eeID =%s"
         values = [
             employee['firstName'],

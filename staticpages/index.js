@@ -118,11 +118,10 @@ function getEEFromForm() {
 	var form = document.getElementById('createUpdateForm');
 	var EE = {};
 	//commented out this as the primary key is auto incremented and code won't update unless it's blank
-	//undefined is returned to html page, but on refresh ..primary key is visible
 	EE.empID = form.querySelector('input[name="eeID"]').value;
 	EE.firstName = form.querySelector('input[name="firstName"]').value;
 	EE.lastName = form.querySelector('input[name="lastName"]').value;
-	//EE.genderType = form.querySelector('input[name="genderType"]').value;
+	EE.genderType = form.querySelector('input[name="genderType"]').value;
 	EE.address = form.querySelector('input[name="address"]').value;
 	//sanity check for doCreate() function
 	console.log(EE);
@@ -151,9 +150,28 @@ function populateTable() {
 	});
 }
 
+function populateGenderList (){
+	// UPDATE THIS ...
+	//gender = '';
+	//$.ajax({
+	//	url: "http://127.0.0.1:5000/genderinfo",
+	//	method: 'GET',
+	//	data: '',
+	//	dataType: 'JSON',
+	//	contentType: "application/json; charset=utf-8",
+	//	success: function (result) {
+	//		formValues = result;
+	//		formValues.forEach((fe, indx) => addEEtoTable(fe, indx));
+	//	},
+	//	error: function (xhr, status, error) {
+	//		console.log("error" + error + "code" + status);
+	//	}
+	//});
+
+}
+
 function addEEtoTable(EE, indx) {
     const tableElem = document.getElementById("employeeTable");
-    
     //add a new row to the table
 	const rowElem = tableElem.insertRow(-1);
 	rowElem.setAttribute("id", EE.eeID);
