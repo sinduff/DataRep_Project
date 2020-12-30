@@ -151,23 +151,26 @@ function populateTable() {
 }
 
 function populateGenderList (){
-	// UPDATE THIS ...
-	//gender = '';
-	//$.ajax({
-	//	url: "http://127.0.0.1:5000/genderinfo",
-	//	method: 'GET',
-	//	data: '',
-	//	dataType: 'JSON',
-	//	contentType: "application/json; charset=utf-8",
-	//	success: function (result) {
-	//		formValues = result;
-	//		formValues.forEach((fe, indx) => addEEtoTable(fe, indx));
-	//	},
-	//	error: function (xhr, status, error) {
-	//		console.log("error" + error + "code" + status);
-	//	}
-	//});
-
+	//code to clear the table before starting to load in the data
+	const tableElem = document.getElementById("employeeTable");
+	tableElem.innerHTML = '';
+	
+	// Populate the dropdown list in the Update / create form
+	gender = '';
+	$.ajax({
+		url: "http://127.0.0.1:5000/genderinfo",
+		method: 'GET',
+		data: '',
+		dataType: 'JSON',
+		contentType: "application/json; charset=utf-8",
+		success: function (result) {
+			formValues = result;
+			formValues.forEach((fe, indx) => addEEtoTable(fe, indx));
+		},
+		error: function (xhr, status, error) {
+			console.log("error" + error + "code" + status);
+		}
+	});
 }
 
 function addEEtoTable(EE, indx) {
@@ -187,9 +190,9 @@ function addEEtoTable(EE, indx) {
 	const cell5 = rowElem.insertCell(4);
 	cell5.innerHTML = EE.address;
 	const cell6 = rowElem.insertCell(5);
-	cell6.innerHTML = `<button onclick="showUpdate(${indx})">Update</button>`;
+	cell6.innerHTML = `<button type="button" class="btn btn-secondary"  onclick="showUpdate(${indx})">Update</button>`;
 	const cell7 = rowElem.insertCell(6);
-	cell7.innerHTML = `<button onclick="doDelete(${indx})">Delete</button>`;
+	cell7.innerHTML = `<button type="button" class="btn btn-secondary" onclick="doDelete(${indx})">Delete</button>`;
 }
 populateTable();
 

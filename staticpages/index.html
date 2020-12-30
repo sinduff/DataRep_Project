@@ -3,9 +3,12 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     </head>
-    <body>  
+    <body class=".bg-light"> 
         <div id="create-update" style="display:none">
-            <h2>Create or Edit a Record</h2>
+            <h2 class="display-4">Employee Data</h2>
+            <img src="SQL_Logo.PNG" alt="sql logo" class="rounded" width="150" height="150" style="float:right">
+            <h3 class="display-5"> Create or Edit a Record</h3>
+
             <table class="table" id="createUpdateForm">
                 <tr>
                     <td>Employee ID</td>
@@ -21,24 +24,37 @@
                 </tr>
                 <tr>
                     <td>Gender </td>
-                    <td><input type="text" name="genderType"></td>
+                    <td><input type="text" name="gender"></td>
                 </tr>
+                <!-- <tr>
+                    <td>Test for Gender</td>
+                    <td>
+                        <form action="/genderType" method="post">
+                            <select name='gender' id="gender">
+                                <option value="Unknown"> Unknown </option>
+                                <option value="Male"> Male </option>
+                                <option value="Female"> Female </option>
+                            </select>
+                        </form>                     
+                    </td>
+                </tr>   -->
                 <tr>
                     <td>Address </td>
                     <td><input type="text" name="address"></td>
                 </tr>
                 <tr>
                     <td></td>
-                    <td><button id="create-button" onclick="doCreate()">Create a New Record</button></td>
-                    <td><button id="update-button" onclick="doUpdate()">Update Record</button></td>
-                    <td><button id="goBack-button" onclick="goBack()">Back</button></td>
+                    <td><button type="button" class="btn btn-secondary" id="create-button" onclick="doCreate()">Create a New Record</button></td>
+                    <td><button type="button" class="btn btn-secondary" id="update-button" onclick="doUpdate()">Update Record</button></td>
+                    <td><button type="button" class="btn btn-secondary" id="goBack-button" onclick="goBack()">Back</button></td>
                 </tr>
             </table>
         </div>
-        <div id="display">
-            <h2>Employee Data</h2>
+        <div id="display" >
+            <h2 class="display-4">Employee Data</h2>
+            <img src="SQL_Logo.PNG" alt="sql logo" class="rounded" width="150" height="150" style="float:right">
             <br>
-            <button onclick="showCreate()">Create a new Employee </button>
+            <button type="button" class="btn btn-secondary" onclick="showCreate()">Create a new Employee </button>
             <br><br>
             <table id="employeeTable" class="table">
                 <tr>
