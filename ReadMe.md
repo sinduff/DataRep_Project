@@ -7,9 +7,11 @@ The brief for this project was to work with API's and have the data they interfa
 1. A web application project
 2. A third party API project
 
-The author evaluated both options and has chosen to undertake option 1, namely the **Web applicaiton project**.
+The author evaluated both options and has chosen to undertake option 1, namely the **Web application project**.
 
-As per the project brief, a git-hub file was created, and a link was shared for submission.
+As per the project brief, a git-hub file was created, and a link was shared for submission.  The server.py and eeDAO.py files use CRUD operations to complete the updates to the server and database respectively.  CRUD operations used for the purpose of the project are:
+
+**INSERT PICTURE HERE**
 
 The project conists of a number of files, namely
 
@@ -40,7 +42,7 @@ The initdb.sql file outlines how the two tables were created in MySQL.  The two 
 This file, provides the link between the database, and the flask server.  The program creates a class called EmpDAO with a number of functions that allow the program to interact with the MySQL database.  The functions contain SQL code to query the database, and this is faciliated by the command *cursor.execute*, which relates to the **mysql.connector** library imported at the start of the program.  The functions created are; 
 
 1. **def __init__ **- links to the database, and provide the address, passwords, database name etc.
-2. **def create** - provides the structure to create a new record
+2. **def create** - provides the structure to create a new record.  The SQL command to create a new record, using the 'INSERT INTO'  command is included here.
 3. **def getAll** - returns all the data from the database
 4. **def ConvertToDict** - converts the returned data (which is a tupple) from the database into a dictionary object called 'employee{}'.  The program iterates through the results, and for every column name returend, it converts it to a array.
 5. **def findByID** - searches the database for a specific id number, and returns to the user.
@@ -52,7 +54,11 @@ The server.py program creates a flask server, which will allow the database to i
 
 The relevant sections of the program are outlined below.
 
-1. **app** - defines the route to the relevant files to access for the server.
+1. **@app.route()** - defines the route to the relevant files to access for the server.
+2. **@app.route('/employees')** - calls the function getAll from the file eeDAO.py.  The link is tested using curl statements, each of which are included above each of the @app.route statements. 0
+3. **@app.route('/employees/1')** - calls the findById function, and returns the database record equal to the id number at the end of the statement.
+4. **@app.route('/employees', methods=['POST'])** - using the POST method, this function calls the create function and is used to create a new record for the database.
+
 
 
 
