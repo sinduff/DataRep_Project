@@ -6,7 +6,7 @@ app = Flask(__name__, static_url_path='', static_folder='staticpages')
 
 @app.route('/')
 def index():
-    return "hello"
+    return "hello, the webpage is working"
 
 #set a variable for nextID for update tests
 nextID = 3
@@ -19,7 +19,7 @@ def getAll():
 #curl http://127.0.0.1:5000/employees/1
 @app.route('/employees/<int:eeID>')
 def findById(eeID):
-    return jsonify(EmpDao.findByID(eeID))
+    return jsonify(EmpDao.findByID(eeID)) 
     
 #curl -X "POST" -H "Content-Type:application/json" -d "{\"eeID\":\3,\"firstName\":\"test\",\"lastName\":\"test\",\"address\":\"test\"}" http://127.0.0.1:5000/employees
 
@@ -59,7 +59,7 @@ def update(eeID):
 def delete(eeID): 
     EmpDao.delete(eeID)
     return jsonify({"done":True})
-
-#error check to make sure the searched for employee exists
+    #error check to make sure the searched for employee exists
+ 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -34,7 +34,6 @@ function populateForm(eeUpdate) {
 
 function doCreate() {
 	//find the div for 'display' @ line 37 and show
-	//console.log("in doCreate")
 	let EE = getEEFromForm();
 	//code to put the data to the server
 	$.ajax({
@@ -46,8 +45,6 @@ function doCreate() {
 		contentType: "application/json; charset=utf-8",
 		success: function (result) {
 			console.log(result);
-			//add book to table if the update has worked
-			//addEEtoTable(EE)
 			showDisplay();
 			populateTable();
 		},
@@ -55,7 +52,7 @@ function doCreate() {
 			console.log("error " + error);
 		}
 	});
-	//showDisplay()
+	
 }
 
 function showDisplay() {
